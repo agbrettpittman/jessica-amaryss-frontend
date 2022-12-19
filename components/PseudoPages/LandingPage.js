@@ -9,12 +9,26 @@ const LogoDiv = styled.div`
     width: 20vw;
 `
 
-const Wrapper = styled.div`
+const DownArrowIndicator = styled.img`
+    margin-bottom: 2vh;
+`
+
+const ChoicesWrapper = styled.div`
     width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+`
+
+const SplashWrapper = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 30vh;
+    align-items: center;
 `
 
 const tileExpansion = keyframes`
@@ -96,16 +110,16 @@ export default function Home() {
 
     return (
         <LandingPageGrouping disappearAnimation={LandingPageDisappearTrigger} active={LandingPageActive}>
-                <Wrapper>
+                <SplashWrapper>
                     <LogoDiv/>
-                    <img src="icons/Arrow SVG.svg" />
-                </Wrapper>
-                <Wrapper>
+                    <DownArrowIndicator src="icons/Arrow SVG.svg" />
+                </SplashWrapper>
+                <ChoicesWrapper>
                     <OptionsDiv>
                         <OptionTile onClick={() => handleTileClick(1)} expand={TileClicked === 1}/>
                         <OptionTile onClick={() => handleTileClick(2) } expand={TileClicked === 2}/>
                     </OptionsDiv>
-                </Wrapper>
+                </ChoicesWrapper>
         </LandingPageGrouping>
     )
 }
