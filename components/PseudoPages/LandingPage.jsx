@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styled, { keyframes, css } from 'styled-components'
 import { useState } from 'react'
+import GraphicDesign from './GraphicDesign'
 
 const LogoDiv = styled.div`
     border: 2px solid white;
@@ -59,6 +60,11 @@ const OptionTile = styled.div`
     height: 20vw;
     width: 20vw;
     background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
     ${(props) => {
         if (props.expand) {
             return css`
@@ -76,7 +82,6 @@ const LandingPageGrouping = styled.div`
     position: absolute;
     top: 0;
     background-color: #b6c8c8;
-    display: ${(props) => (props.active) ? "block" : "none"};
     ${(props) => {
         if (props.disappearAnimation) {
             return css`
@@ -89,14 +94,26 @@ const LandingPageGrouping = styled.div`
     }}
 `
 
-export default function Home() {
+export default function({onTileClick = ()=>{}, hidePage =()=>{}}) {
 
     const [LandingPageDisappearTrigger, setLandingPageDisappearTrigger] = useState(false)
-    const [LandingPageActive, setLandingPageActive] = useState(true)
     const [TileClicked, setTileClicked] = useState(0)
+    const OptionTileArray = [
+        {
+            id: 0,
+            component: <GraphicDesign />,
+            displayName: "Graphic Design"
+        },
+        {
+            id: 0,
+            component: <GraphicDesign />,
+            displayName: "Graphic Design"
+        },
+    ]
 
-    function handleTileClick(tileNumber) {
-        setTileClicked(tileNumber)
+    function handleTileClick({ id, component, displayName}) {
+        setTileClicked(id)
+        onTileClick(component)
         setLandingPageDisappearTrigger(true)
         window.scrollTo({
             top: 0,
@@ -104,20 +121,27 @@ export default function Home() {
             behavior: "smooth"
         })
         setTimeout(() => {
-            setLandingPageActive(false)
+            hidePage()
         }, 2000)
     }
 
     return (
-        <LandingPageGrouping disappearAnimation={LandingPageDisappearTrigger} active={LandingPageActive}>
+        <LandingPageGrouping disappearAnimation={LandingPageDisappearTrigger}>
                 <SplashWrapper>
                     <LogoDiv/>
                     <DownArrowIndicator src="icons/Arrow SVG.svg" />
                 </SplashWrapper>
                 <ChoicesWrapper>
                     <OptionsDiv>
-                        <OptionTile onClick={() => handleTileClick(1)} expand={TileClicked === 1}/>
-                        <OptionTile onClick={() => handleTileClick(2) } expand={TileClicked === 2}/>
+                        {OptionTileArray.map(tileData => 
+                            <OptionTile 
+                                key={tileData.id} 
+                                onClick={() => handleTileClick(tileData)} 
+                                expand={TileClicked === tileData.id}
+                            >
+                                {tileData.displayName}
+                            </OptionTile>
+                        )}
                     </OptionsDiv>
                 </ChoicesWrapper>
         </LandingPageGrouping>
