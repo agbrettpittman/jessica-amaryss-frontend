@@ -1,5 +1,6 @@
 
 import styled from 'styled-components'
+import ContentPage from '../components/PseudoPages/ContentPage'
 
 const MainPageBackground = styled.div`
     z-index: 2;
@@ -11,6 +12,8 @@ const MainPageBackground = styled.div`
 export default function() {
 
     return (
-        <h1>Graphic Design</h1>
+        <ContentPage>
+            <h1>Digital Art</h1>
+        </ContentPage>
     )
 }

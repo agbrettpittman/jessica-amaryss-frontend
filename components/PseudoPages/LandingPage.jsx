@@ -1,7 +1,9 @@
 import Head from 'next/head'
 import styled, { keyframes, css } from 'styled-components'
 import { useState } from 'react'
-import GraphicDesign from './GraphicDesign'
+import GraphicDesign from '../../pages/GraphicDesign'
+import { useRouter } from 'next/router'
+import DigitalArt from '../../pages/DigitalArt'
 
 const LogoDiv = styled.div`
     border: 2px solid white;
@@ -97,21 +99,24 @@ const LandingPageGrouping = styled.div`
 export default function({onTileClick = ()=>{}, hidePage =()=>{}}) {
 
     const [LandingPageDisappearTrigger, setLandingPageDisappearTrigger] = useState(false)
-    const [TileClicked, setTileClicked] = useState(0)
+    const [TileClicked, setTileClicked] = useState(null)
+    const Router = useRouter()
     const OptionTileArray = [
         {
             id: 0,
             component: <GraphicDesign />,
-            displayName: "Graphic Design"
+            displayName: "Graphic Design",
+            route: "/GraphicDesign",
         },
         {
-            id: 0,
-            component: <GraphicDesign />,
-            displayName: "Graphic Design"
+            id: 1,
+            component: <DigitalArt />,
+            displayName: "Digital Art",
+            route: "/DigitalArt",
         },
     ]
 
-    function handleTileClick({ id, component, displayName}) {
+    function handleTileClick({ id, component, route}) {
         setTileClicked(id)
         onTileClick(component)
         setLandingPageDisappearTrigger(true)
@@ -122,6 +127,7 @@ export default function({onTileClick = ()=>{}, hidePage =()=>{}}) {
         })
         setTimeout(() => {
             hidePage()
+            Router.push(route, undefined, {shallow:true})
         }, 2000)
     }
 
