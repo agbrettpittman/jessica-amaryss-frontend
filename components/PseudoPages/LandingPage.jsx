@@ -67,6 +67,7 @@ const OptionTile = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 2rem;
+    cursor: pointer;
     ${(props) => {
         if (props.expand) {
             return css`
