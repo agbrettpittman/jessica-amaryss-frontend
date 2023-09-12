@@ -31,11 +31,11 @@ function ContentPage({children = <></>}) {
     return (
             <FullPage>
                 <SideNav>
-                    <NavLink>Home</NavLink>
-                    <NavLink>Graphic Design</NavLink>
-                    <NavLink>Digital Art</NavLink>
-                    <NavLink>About Me</NavLink>
-                    <NavLink>Contact</NavLink>
+                    <NavLink href="/">Home</NavLink>
+                    <NavLink href='/GraphicDesign'>Graphic Design</NavLink>
+                    <NavLink href="/DigitalArt">Digital Art</NavLink>
+                    <NavLink href='/AboutMe'>About Me</NavLink>
+                    <NavLink href='/Contact'>Contact</NavLink>
                 </SideNav>
                 <PageContents>
                     {children}
